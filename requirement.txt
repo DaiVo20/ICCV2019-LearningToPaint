@@ -1,0 +1,6 @@
+torch==1.11.0
+scipy==1.2.1
+imgaug==0.2.5
+tensorboardX
+tensorboard
+opencv-python
