@@ -23,13 +23,13 @@ step = 0
 def save_model():
     if use_cuda:
         net.cpu()
-    torch.save(net.state_dict(), "../renderer.pkl")
+    torch.save(net.state_dict(), "/content/ICCV2019-LearningToPaint/renderer.pkl")
     if use_cuda:
         net.cuda()
 
 
 def load_weights():
-    pretrained_dict = torch.load("../renderer.pkl")
+    pretrained_dict = torch.load("/content/ICCV2019-LearningToPaint/renderer.pkl")
     model_dict = net.state_dict()
     pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict}
     model_dict.update(pretrained_dict)
@@ -45,8 +45,10 @@ while step < 500000:
         f = np.random.uniform(0, 1, 10)
         train_batch.append(f)
         ground_truth.append(draw(f))
-
+    train_batch = np.array(train_batch)
     train_batch = torch.tensor(train_batch).float()
+    
+    ground_truth = np.array(ground_truth)
     ground_truth = torch.tensor(ground_truth).float()
     if use_cuda:
         net = net.cuda()
